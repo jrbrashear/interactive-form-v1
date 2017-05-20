@@ -53,10 +53,10 @@ const tomato = color[3];
 const steelblue = color[4];
 const dimgrey = color[5];
 
-fetchId("colors-js-puns").style.display = "none";
+fetchId("color").style.display = "none";
 
 design.addEventListener("change", (e) => {
-  fetchId("colors-js-puns").style.display = "";
+  fetchId("color").style.display = "";
   if(design.selectedIndex == 1){
     for (let i=3; i<=5; i++){
        color.lastElementChild.remove();
