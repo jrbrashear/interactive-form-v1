@@ -6,33 +6,28 @@ function fetchId(elem) {
 //set focus to name----------------/
 
 function setFocus(name) {
-document.getElementById(name).focus();
+fetchId(name).focus();
 }
-setFocus('name');
-//remove post back behavior from enter key press and advise user to use Tab key
-const form = fetchId('form');
-form.addEventListener('submit', (e) => {
-  {e.preventDefault();}
-});
-//add alert box if enter is pressed
-form.addEventListener('keydown', (e) => {
+setFocus("name");
+//remove alert on enter key press and remove function
+form.addEventListener("keydown", (e) => {
   if(e.keyCode == 13){ alert("Please Use 'Tab' key to advance")}
 });
 //add variables --------for job role section
 let jobRole = fetchId("title");
 let otherJobRole;
-let userTitle = fetchId('jobRoleSection');
+let userTitle = fetchId("jobRoleSection");
 //set jobRole to default of first option
 jobRole.selectedIndex = 0 ;
 //add event listener and html text field if other is selected/
-fetchId('title').addEventListener("change", function (e){
+fetchId("title").addEventListener("change", function (e){
   if(jobRole.selectedIndex == 5){
-    let text = document.createElement('input');
-    text.type = 'text';
+    let text = document.createElement("input");
+    text.type = "text";
     userTitle.appendChild(text);
     text.id = "other-title";
     text.placeholder = "Your Job Role";
-    text.addEventListener('keydown', (e) => {
+    text.addEventListener("keydown", (e) => {
         if(e.keyCode == 9){
         otherJobRole = text.value;
         }
@@ -41,7 +36,7 @@ fetchId('title').addEventListener("change", function (e){
   }
 //remove text input if selected in error-----
   if(jobRole.selectedIndex < 5 &&
-    fetchId('jobRoleSection').lastElementChild.id == "other-title"){
+    fetchId("jobRoleSection").lastElementChild.id == "other-title"){
       console.log("remove");
       jobRoleSection.lastElementChild.remove();
   }
@@ -58,7 +53,7 @@ const tomato = color[3];
 const steelblue = color[4];
 const dimgrey = color[5];
 
-design.addEventListener('change', (e) => {
+design.addEventListener("change", (e) => {
 
   if(design.selectedIndex == 1){
     for (let i=3; i<=5; i++){
@@ -86,7 +81,7 @@ design.addEventListener('change', (e) => {
 });
 //activities section ----------------
 function getLabel(elem) {
-  return document.getElementById(elem + 'Label')
+  return document.getElementById(elem + "Label")
 }
 
 
@@ -165,7 +160,7 @@ activities.addEventListener("change", (e) => {
   }
 
   if (activities.lastElementChild.id == "npmLabel") {
-  let label = document.createElement('label');
+  let label = document.createElement("label");
 
   activities.appendChild(label);
   label.id = "total";
@@ -181,6 +176,9 @@ const payment = fetchId("payment");
 const creditCard = fetchId("credit-card");
 const payPal = fetchId("payPal");
 const bitcoin = fetchId("bitcoin");
+payment.selectedIndex = 1;
+payPal.style.display = "none";
+bitcoin.style.display = "none";
 
 
 payment.addEventListener("change", (e) => {
@@ -206,14 +204,62 @@ payment.addEventListener("change", (e) => {
 
 
 //validation
-const button = fetchId('submit');
-let address = document.getElementById('mail').value;
 
-button.addEventListener('click', (e) => {
-  if (fetchId('name').value.length == 0) {
-    fetchId('name').style.borderColor = 'red';
+
+const button = fetchId("submit");
+let address = document.getElementById("mail").value;
+button.addEventListener("click", (e) => {
+
+
+
+  if (fetchId("name").value.length == 0) {
+    fetchId("name").style.borderColor = "red";
+    alert("Please enter your full name:");
+    (e).preventDefault();
   } else {
-    fetchId('name').style.borderColor = "#c1deeb";
+    fetchId("name").style.borderColor = "#c1deeb";
   }
 
-})
+  if (fetchId("mail").value.length == 0) {
+    fetchId("mail").style.borderColor = "red";
+    alert("Please enter Valid Email Address:");
+    (e).preventDefault();
+    setFocus('mail');
+  } else {
+    fetchId("mail").style.borderColor = "#c1deeb";
+  }
+
+  //verifiy checkbox checked
+
+  let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  let checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+  if(checkedOne == 0) {
+    alert("Please Select at least (1) Activity in the Activities Section:");
+    (e).preventDefault();
+  }
+
+  //credit card verification
+  if (payment.selectedIndex == 1) {
+    if (fetchId("cc-num").value.length <=12 || fetchId("cc-num").value.length >= 17) {
+      alert("Please enter a valid Credit Card Number between 13 and 16 digits:");
+      fetchId("cc-num").style.borderColor = "red";
+      (e).preventDefault();
+    } else {
+      fetchId("cc-num").style.borderColor = "#c1deeb";
+    }
+    if (fetchId("zip").value.length != 5) {
+      alert("Please enter a 5-digit Zip or Postal Code:");
+      fetchId("zip").style.borderColor = "red";
+      (e).preventDefault();
+    } else {
+      fetchId("zip").style.borderColor = "#c1deeb";
+    }
+    if (fetchId("cvv").value.length != 3) {
+      alert("Please enter a 3-Digit CCV:");
+      fetchId("cvv").style.borderColor = "red";
+    } else {
+      fetchId("cvv").style.borderColor = "c1deeb";
+      return true;
+    }
+  }
+});
