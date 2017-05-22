@@ -184,6 +184,8 @@ bitcoin.style.display = "none";
 
 
 payment.addEventListener("change", (e) => {
+
+
   if (payment.selectedIndex == 2 || payment.selectedIndex == 3){
     creditCard.style.display = "none";
   } else {
@@ -198,6 +200,11 @@ payment.addEventListener("change", (e) => {
     bitcoin.style.display = "none";
   } else {
     bitcoin.style.display ="";
+  }
+
+  if (payment.selectedIndex == 0) {
+    payPal.style.display = "none";
+    bitcoin.style.display = "none";
   }
 
 
@@ -241,6 +248,7 @@ button.addEventListener("click", (e) => {
   }
 
   //credit card verification
+
   if (payment.selectedIndex == 1) {
     if (fetchId("cc-num").value.length <=12 || fetchId("cc-num").value.length >= 17) {
       alert("Please enter a valid Credit Card Number between 13 and 16 digits:");
