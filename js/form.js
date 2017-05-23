@@ -293,29 +293,47 @@ button.addEventListener("click", (e) => {
   }
 
   //credit card verification
+if(isNaN(fetchId('cvv').value)) {
+  alert("Numbers only allowed for CVV")
+  setFocus("cvv");
+  (e).preventDefault();
+ }
 
-  if (payment.selectedIndex == 1) {
-    if (fetchId("cc-num").value.length <=12 || fetchId("cc-num").value.length >= 17) {
-      alert("Please enter a valid Credit Card Number between 13 and 16 digits:");
-      fetchId("cc-num").style.borderColor = "red";
-      (e).preventDefault();
+if(isNaN(fetchId('zip').value)) {
+  alert("Numbers only allowed for Zip Code")
+  setFocus("zip");
+  (e).preventDefault();
+}
+
+if(isNaN(fetchId('cc-num').value)) {
+  alert("Numbers only allowed for Card Number")
+  setFocus("cc-num");
+  (e).preventDefault();
+}
+if (payment.selectedIndex == 1) {
+  if (fetchId("cc-num").value.length <=12 || fetchId("cc-num").value.length >= 17) {
+  alert("Please enter a valid Credit Card Number between 13 and 16 digits:");
+  fetchId("cc-num").style.borderColor = "red";
+  (e).preventDefault();
     } else {
       fetchId("cc-num").style.borderColor = "#c1deeb";
     }
-    if (fetchId("zip").value.length != 5) {
-      alert("Please enter a 5-digit Zip or Postal Code:");
-      fetchId("zip").style.borderColor = "red";
-      (e).preventDefault();
+if (fetchId("zip").value.length != 5) {
+  alert("Please enter a 5-digit Zip or Postal Code:");
+  fetchId("zip").style.borderColor = "red";
+  (e).preventDefault();
     } else {
       fetchId("zip").style.borderColor = "#c1deeb";
     }
-    if (fetchId("cvv").value.length != 3) {
-      alert("Please enter a 3-Digit CCV:");
-      fetchId("cvv").style.borderColor = "red";
-      (e).preventDefault();
-    } else {
+if (fetchId("cvv").value.length != 3) {
+  alert("Please enter a 3-Digit CCV:");
+  fetchId("cvv").style.borderColor = "red";
+  (e).preventDefault();
+    }
+      else {
       fetchId("cvv").style.borderColor = "c1deeb";
-      return true;
+
     }
   }
+return true;
 });
