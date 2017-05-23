@@ -99,6 +99,9 @@ fetchId("color").style.display = "none";
 
 design.addEventListener("change", (e) => {
   fetchId("color").style.display = "";
+  if(design.selectedIndex == 0) {
+    fetchId("color").style.display = "none";
+  }
   if(design.selectedIndex == 1){
     for (let i=3; i<=5; i++){
        color.lastElementChild.remove();
