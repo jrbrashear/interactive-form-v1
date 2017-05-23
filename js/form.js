@@ -1,4 +1,14 @@
-//form.js
+//add variables --------for job role section
+let jobRole = fetchId("title");
+let otherJobRole;
+let userTitle = fetchId("jobRoleSection");
+let nameLabel = document.createElement("label");
+let userName = fetchId("uname");
+
+
+
+
+
 function fetchId(elem) {
   return document.getElementById(elem);
 }
@@ -6,17 +16,49 @@ function fetchId(elem) {
 //set focus to name----------------/
 
 function setFocus(name) {
-fetchId(name).focus();
+  fetchId(name).focus();
 }
+
 setFocus("name");
+
+
+
 //remove alert on enter key press and remove function
 form.addEventListener("keydown", (e) => {
   if(e.keyCode == 13){ alert("Please Use 'Tab' key to advance")}
 });
-//add variables --------for job role section
-let jobRole = fetchId("title");
-let otherJobRole;
-let userTitle = fetchId("jobRoleSection");
+
+fetchId("name").addEventListener("keyup", (e) => {
+  if ((e.keyCode >=57 && e.keyCode <=90)==false){
+
+    nameLabel.setAttribute("for", "name");
+    nameLabel.setAttribute("class", "label");
+    nameLabel.style.color = "red";
+    nameLabel.style.textAlign = "center";
+    nameLabel.textContent = "********Letters Only Please********";
+    userName.appendChild(nameLabel);
+    let txt = fetchId("name").value;
+    fetchId("name").value = txt.replace(/\d/g,"");
+
+    fetchId("name").addEventListener("keydown", (e) => {
+      if(e.keyCode == 9 || e.keyCode == 32) {nameLabel.remove();}
+    });
+
+    fetchId("name").addEventListener("keyup", (e) => {
+      if(e.keyCode == 32) {nameLabel.remove();}
+    });
+
+    if(fetchId("name").value == "") {
+      alert("Name Cannot be Blank");
+    }
+
+
+  } else {
+      nameLabel.remove();
+  }
+
+});
+
 //set jobRole to default of first option
 jobRole.selectedIndex = 0 ;
 //add event listener and html text field if other is selected/
@@ -233,7 +275,7 @@ button.addEventListener("click", (e) => {
     fetchId("mail").style.borderColor = "red";
     alert("Please enter Valid Email Address:");
     (e).preventDefault();
-    setFocus('mail');
+
   } else {
     fetchId("mail").style.borderColor = "#c1deeb";
   }
@@ -267,6 +309,7 @@ button.addEventListener("click", (e) => {
     if (fetchId("cvv").value.length != 3) {
       alert("Please enter a 3-Digit CCV:");
       fetchId("cvv").style.borderColor = "red";
+      (e).preventDefault();
     } else {
       fetchId("cvv").style.borderColor = "c1deeb";
       return true;
